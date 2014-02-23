@@ -20,8 +20,29 @@ if(!$us = mfa($u)) {
 <?php
 echo "</div></div>";
 }
-else {
-echo nextMovie($idU);
+else { // you're logged in
+
+$rating = array(); $neighbors = array();
+$i = 0; $lastMovie = 0;
+$r = mq("SELECT movie, rating FROM bd_movieratings WHERE user='$idU' ORDER BY id");
+$ratings = ""; $list = array();
+while($ra = mfa($r)) {
+if($ratings != "") {$ratings .= ", ";}
+array_push($list, $ra['movie']);
+$ratings .= '{"m": '.$ra['movie'].', "r": '.$ra['rating'].'}';
+$lastMovie = $ra['movie'];
+}
+$neighborList = "";
+$m = mq("SELECT id, neighbors FROM bd_movies WHERE id IN (".implode(", ", $list).")");
+while($mo = mysql_fetch_array($m)) {
+if($neighborList != "") {$neighborList .= ", ";}
+$neighborList .= '{"m": '.$mo['id'].', "n": "'.$mo['neighbors'].'"}';
+}
+$ratings = "[".$ratings."]";
+$neighborList = "[".$neighborList."]";
+echo "<script type=\"text/javascript\">initMovies('$ratings', '$neighborList');
+nextMovie($lastMovie);
+</script>";
 echo "</body>";
 }
 ?>

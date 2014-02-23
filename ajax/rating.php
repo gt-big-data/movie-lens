@@ -9,8 +9,8 @@ if(isset($_GET['user']) AND isset($_GET['pass']) AND isset($_GET['rating']) AND 
 		else { // add a new score, yay ! :)
 		mq("INSERT INTO `bd_movieratings` (`id`, `user`, `movie`, `rating`) VALUES (NULL, '".$user."', '".$movie."', '".$rating."');");
 		}
-		
-		echo nextMovie($user);
+		$m = mq("SELECT neighbors FROM bd_movies WHERE id='".$movie."'"); $mo = mfa($m);
+		echo $mo['neighbors'];
 	}
 	else {
 		echo "0";
