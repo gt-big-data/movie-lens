@@ -15,7 +15,7 @@ if(isset($_GET['movie'])) {
 	else { // easy peasy
 	$m = mq("SELECT * FROM bd_movies WHERE id='$movie'"); $mo = mfa($m);	
 	}
-	$ret =  "<div class=\"movieClass\" id=\"m".$mo['id']."\"><img src=\"".$g->get($mo['movieName'])."\" class=\"movieImg\" alt=\"".$mo['movieName']."\" title=\"".$mo['movieName']."\"  />
+	$ret =  "<div class=\"movieClass\" id=\"m".$mo['id']."\"><img src=\"".$g->get($mo['movieName']." movie poster")."\" class=\"movieImg\" alt=\"".$mo['movieName']."\" title=\"".$mo['movieName']."\"  />
 	<div class=\"starDiv\"><img src=\"images/x.gif\" class=\"x\" title=\"I don't know this movie\" onclick=\"addRating(-1, ".$mo['id'].");\" />";
 	for($i = 2; $i <= 6; $i ++) {
     $ret .= "<img src=\"images/star".$i.".png\" class=\"stars star".$i."\" title=\"".($i-1)." Stars\" onclick=\"addRating(".($i-1).", ".$mo['id'].");\" onmouseover=\"choose(".($i-1).", ".$mo['id'].");\" />";
