@@ -1,0 +1,9 @@
+user i, j
+movie m
+
+predicted rating_m = avg_i + (sum w_ij * residual_mj) / (sum w_ij)
+
+residual_mj = rating_mj - avg_j
+w_ij = covarience_ij / (std_i * std_j)
+
+cluster on correlation, similar movies together
